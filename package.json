@@ -5,7 +5,7 @@
   "description": "Shows git blame in the status bar.",
   "author": "Baldur Helgason <baldur.helgason@gmail.com>",
   "keywords": [],
-  "repository": "https://github.com/baldur/atom-status-bar-blame",
+  "repository": "https://github.com/baldurh/atom-status-bar-blame",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
