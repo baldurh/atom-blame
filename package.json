@@ -1,25 +1,33 @@
 {
-  "name": "blame",
+  "name": "atom-status-bar-blame",
   "main": "./lib/init",
-  "version": "0.10.0",
-  "description": "Show git blame as a gutter.",
-  "author": "Josa Gesell <josa@gesell.me>",
+  "version": "0.1.0",
+  "description": "Shows git blame in the status bar.",
+  "author": "Baldur Helgason <baldur.helgason@gmail.com>",
   "keywords": [],
-  "repository": "https://github.com/josa42/atom-blame",
+  "repository": "https://github.com/baldur/atom-status-bar-blame",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "activationCommands": {
-    "atom-workspace": [
-      "blame:toggle"
-    ]
+  "consumedServices": {
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
+      }
+    }
   },
   "dependencies": {
-    "blamer": "^0.1.9",
+    "blamer": "^0.1.13",
     "git-wrapper": "^0.1.1",
-    "gravatar": "^1.4.0",
-    "moment": "^2.10.6",
+    "gravatar": "^1.6.0",
+    "moment": "^2.18.1",
     "open": "0.0.5"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.2",
+    "eslint-plugin-import": "^2.2.0"
   }
 }

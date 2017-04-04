@@ -1,4 +1,6 @@
-Copyright (c) 2015 Josa Gesell
+Copyright for portions of project Atom Status Bar Blame are held by
+Josa Gesell, 2015 as part of project Blame. All other copyright for
+project Atom Status Bar Blame are held by Baldur Helgason, 2017.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

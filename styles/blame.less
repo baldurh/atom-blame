@@ -5,72 +5,7 @@
 @import "ui-variables";
 @import "octicon-mixins";
 
-atom-text-editor::shadow {
-  .gutter[gutter-name="blame"] {
-    border-right: 1px solid @base-border-color;
-  }
-
-  .blame-gutter {
-    width: 100%;
-    .blame-gutter-inner {
-
-      padding: 0 5px 0 5px;
-
-      box-sizing: border-box;
-
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow-x: hidden;
-      width: 100%;
-      text-align: left;
-
-      &.blame-odd {
-       background-color: rgba(255, 255, 255, 0.02)
-      }
-
-      &.blame-even {
-       background-color: rgba(0, 0, 0, 0.02)
-      }
-
-      &:hover {
-        padding-right: calc(~"12px + 2em");
-        .icon {
-          display: block;
-        }
-      }
-
-      .blame-gutter-handle {
-        position: absolute;
-        width: 4px;
-        height: 100%;
-        right: 0;
-        top: 0;
-        cursor: col-resize;
-      }
-
-      .icon {
-        display: none;
-        cursor: pointer;
-        padding-right: 5px;
-        position: absolute;
-      }
-
-      .icon-copy {
-        .octicon(clippy, @size: 1em);
-        right: calc(~"1em + 2px");
-        &:hover { color: @text-color-info; }
-      }
-
-      .icon-link {
-        .octicon(link-external, @size: 1em);
-        right: 0;
-        &:hover { color: @text-color-info; }
-      }
-    }
-  }
- }
-
-.blame-tooltip {
+.status-bar-blame-tooltip {
   text-align: left;
 
   max-width: 500px;

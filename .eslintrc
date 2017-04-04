@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb-base",
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "atomtest": true,
+    "jasmine": true,
+  },
+  "ecmaFeatures": {
+    "defaultParams": true
+  },
+  "settings": {
+    "import/core-modules": [
+      'atom'
+    ]
+  },
+  "globals": {
+    "atom": false
+  }
+}
