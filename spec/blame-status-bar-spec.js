@@ -28,11 +28,21 @@ describe('Status Bar Blame', () => {
       });
     });
 
-    it('should render "Not Committed Yet" when there’s no data', () => {
+    it('should render "Not Committed Yet" when there’s no data for file', () => {
+      spyOn(utils, 'findRepo').andReturn('.git');
       waitsForPromise(() => atom.workspace.open('empty.txt'));
       waitsFor(() => renderSpy.callCount > 0);
       runs(() => {
         expect(blameEl().innerHTML).toEqual('Not Committed Yet');
+      });
+    });
+
+    it('should not render when there’s no git repo', () => {
+      spyOn(utils, 'findRepo').andReturn(null);
+      waitsForPromise(() => atom.workspace.open('empty.txt'));
+      waitsFor(() => renderSpy.callCount > 0);
+      runs(() => {
+        expect(blameEl().innerHTML).toEqual('');
       });
     });
 
