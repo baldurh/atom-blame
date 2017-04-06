@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.2
+* Changes the default commit link url protocol to http
+
 ## 1.0.1
 * Fixed deprecation errors
 * Render nothing when there’s no git repo
