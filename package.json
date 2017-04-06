@@ -1,7 +1,7 @@
 {
   "name": "atom-status-bar-blame",
   "main": "./lib/init",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Shows git blame in the status bar.",
   "author": "Baldur Helgason <baldur.helgason@gmail.com>",
   "keywords": [],
