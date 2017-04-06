@@ -14,13 +14,13 @@ describe('Utils', () => {
   });
 
   describe('getCommitLink', () => {
-    it('should provide a correct link', async () => {
+    it('should provide a correct link for github', async () => {
       spyOn(utils, 'findRepo').andReturn('/.git');
-      spyOn(Git.prototype, 'exec').andCallFake((cmd, options, args) => {
+      spyOn(Git.prototype, 'exec').andCallFake((cmd, options, args, callback) => {
         if (cmd === 'config' && args[0] === 'remote.origin.url') {
-          return 'https://github.com/baldurh/atom-status-bar-blame.git';
+          return callback(null, 'https://github.com/baldurh/atom-status-bar-blame.git');
         }
-        return null;
+        return callback(null);
       });
       const link = await utils.getCommitLink('somefile.txt', '12345678');
       expect(link).toEqual('https://github.com/baldurh/atom-status-bar-blame/commit/12345678');
@@ -28,16 +28,19 @@ describe('Utils', () => {
   });
 
   describe('getCommit', () => {
-    spyOn(Git.prototype, 'exec').andCallFake((cmd, options, args) => {
-      if (cmd === 'show' && args[0] === '12345678') {
-        return `someone@wherever.com
+    beforeEach(() => {
+      spyOn(utils, 'findRepo').andReturn('/.git');
+      spyOn(Git.prototype, 'exec').andCallFake((cmd, options, args, callback) => {
+        if (cmd === 'show' && args[0] === '12345678') {
+          return callback(null, `someone@wherever.com
 Some One
 Subject Line
 
 Line 1
-Line 2`;
-      }
-      return null;
+Line 2`);
+        }
+        return callback(null);
+      });
     });
 
     it('should return null', async () => {
@@ -51,7 +54,7 @@ Line 2`;
         email: 'someone@wherever.com',
         author: 'Some One',
         subject: 'Subject Line',
-        message: 'Line 1 Line 2',
+        message: 'Line 1\nLine 2',
       });
     });
   });
