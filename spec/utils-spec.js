@@ -25,6 +25,18 @@ describe('Utils', () => {
       const link = await utils.getCommitLink('somefile.txt', '12345678');
       expect(link).toEqual('https://github.com/baldurh/atom-status-bar-blame/commit/12345678');
     });
+
+    it('should provide a correct link', async () => {
+      spyOn(utils, 'findRepo').andReturn('/.git');
+      spyOn(Git.prototype, 'exec').andCallFake((cmd, options, args, callback) => {
+        if (cmd === 'config' && args[0] === 'remote.origin.url') {
+          return callback(null, 'git@gitlab.hidden.dom:eid/broncode.git');
+        }
+        return callback(null);
+      });
+      const link = await utils.getCommitLink('somefile.txt', '12345678');
+      expect(link).toEqual('http://gitlab.hidden.dom/eid/broncode/commit/12345678');
+    });
   });
 
   describe('getCommit', () => {
