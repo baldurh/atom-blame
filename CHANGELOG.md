@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.3
+* Renamed the package
+
 ## 1.0.2
 * Changes the default commit link url protocol to http
 

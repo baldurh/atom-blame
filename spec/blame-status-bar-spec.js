@@ -11,7 +11,7 @@ describe('Status Bar Blame', () => {
   beforeEach(() => {
     workspaceElement = atom.views.getView(atom.workspace);
     waitsForPromise(() => atom.packages.activatePackage('status-bar'));
-    waitsForPromise(() => atom.packages.activatePackage('atom-status-bar-blame'));
+    waitsForPromise(() => atom.packages.activatePackage('status-bar-blame'));
   });
 
   describe('Status bar', () => {
