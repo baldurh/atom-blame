@@ -1,5 +1,5 @@
 {
-  "name": "atom-status-bar-blame",
+  "name": "status-bar-blame",
   "main": "./lib/init",
   "version": "1.0.2",
   "description": "Shows git blame in the status bar.",
