@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.4
+* Fixed issue with tooltips not being disposed
+
 ## 1.0.3
 * Renamed the package
 
