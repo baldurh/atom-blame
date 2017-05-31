@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.6
+* Adds the `inline-block` class to the element
+
+## 1.0.5
+* Clears the element when the current tab is not TextEditor
+
 ## 1.0.4
 * Fixed issue with tooltips not being disposed
 
