@@ -123,5 +123,37 @@ describe('Status Bar Blame', () => {
         expect(atom.clipboard.write).toHaveBeenCalledWith('12345678');
       });
     });
+
+    it('should display notification tooltip when url is unknown', () => {
+      let spy = null;
+
+      spyOn(utils, 'blame').andReturn([{
+        author: 'Baldur Helgason',
+        date: '2017-04-03 17:05:39 +0000',
+        line: '1',
+        rev: '12345678',
+      }]);
+
+      spyOn(utils, 'getCommitLink').andReturn(null);
+
+      spyOn(BlameView.prototype, 'addTooltip');
+
+      waitsForPromise(() => atom.workspace.open('empty.txt'));
+
+      waitsFor(() => renderSpy.callCount > 0);
+
+      runs(() => {
+        spy = spyOn(BlameView.prototype, 'addNotificationTooltip').andCallThrough();
+
+        const event = new Event('click');
+        blameEl().dispatchEvent(event);
+      });
+
+      waitsFor(() => spy.callCount > 0);
+
+      runs(() => {
+        expect(spy).toHaveBeenCalledWith('Unknown url. Shift-click to copy hash.', 2000);
+      });
+    });
   });
 });
