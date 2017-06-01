@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+* Adds a new feature: Shift-click the status-bar-blame element to copy the commit hash. Thanks to GitHub user MoritzKn.
+* Changes the 'Unknown url' notification to a temporary tooltip
+
 ## 1.0.6
 * Adds the `inline-block` class to the element. Thanks to GitHub user chrisdrackett.
 
