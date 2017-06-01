@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.0.6
-* Adds the `inline-block` class to the element
+* Adds the `inline-block` class to the element. Thanks to GitHub user chrisdrackett.
 
 ## 1.0.5
 * Clears the element when the current tab is not TextEditor
