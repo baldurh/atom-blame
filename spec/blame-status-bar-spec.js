@@ -91,5 +91,37 @@ describe('Status Bar Blame', () => {
         expect(blameEl().innerHTML).toEqual('<a href="#"><span class="author">Baldur Helgason</span> · <span class="date">2 days ago</span></a>');
       });
     });
+
+    it('should copy the commit hash on shit+click', () => {
+      let spy = null;
+
+      spyOn(utils, 'blame').andReturn([{
+        author: 'Baldur Helgason',
+        date: '2017-04-03 17:05:39 +0000',
+        line: '1',
+        rev: '12345678',
+      }]);
+
+      spyOn(atom.clipboard, 'write');
+      spyOn(BlameView.prototype, 'addTooltip');
+
+      waitsForPromise(() => atom.workspace.open('empty.txt'));
+
+      waitsFor(() => renderSpy.callCount > 0);
+
+      runs(() => {
+        spy = spyOn(BlameView.prototype, 'copyCommitHash').andCallThrough();
+
+        const event = new Event('click');
+        event.shiftKey = true;
+        blameEl().dispatchEvent(event);
+      });
+
+      waitsFor(() => spy.callCount > 0);
+
+      runs(() => {
+        expect(atom.clipboard.write).toHaveBeenCalledWith('12345678');
+      });
+    });
   });
 });
