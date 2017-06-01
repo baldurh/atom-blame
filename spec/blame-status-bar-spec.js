@@ -92,7 +92,7 @@ describe('Status Bar Blame', () => {
       });
     });
 
-    it('should copy the commit hash on shit+click', () => {
+    it('should copy the commit hash on shift+click', () => {
       let spy = null;
 
       spyOn(utils, 'blame').andReturn([{
