@@ -1,7 +1,7 @@
 /** @babel */
 
 import moment from 'moment';
-import utils from '../lib/utils';
+import * as utils from '../lib/utils';
 import BlameView from '../lib/blame-status-bar-view';
 
 describe('Status Bar Blame', () => {
