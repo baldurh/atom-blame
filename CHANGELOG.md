@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+* Removes 3rd party dependencies, `blamer` and `git-wrapper`. Addresses long startup times.
+* Fixes wrong user information in tooltips for squashed commits.
+
 ## 1.1.0
 * Adds a new feature: Shift-click the status-bar-blame element to copy the commit hash. Thanks to GitHub user MoritzKn.
 * Changes the 'Unknown url' notification to a temporary tooltip
