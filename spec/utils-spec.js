@@ -1,8 +1,7 @@
 /** @babel */
 
 import fs from 'fs';
-import Git from 'git-wrapper';
-import utils from '../lib/utils';
+import * as utils from '../lib/utils';
 
 describe('Utils', () => {
   describe('findRepo', () => {
@@ -14,26 +13,18 @@ describe('Utils', () => {
   });
 
   describe('getCommitLink', () => {
-    it('should provide a correct link for github', async () => {
+    beforeEach(() => {
       spyOn(utils, 'findRepo').andReturn('/.git');
-      spyOn(Git.prototype, 'exec').andCallFake((cmd, options, args, callback) => {
-        if (cmd === 'config' && args[0] === 'remote.origin.url') {
-          return callback(null, 'https://github.com/baldurh/atom-status-bar-blame.git');
-        }
-        return callback(null);
-      });
+    });
+
+    it('should provide a correct link for github', async () => {
+      spyOn(utils.git, 'getConfig').andReturn('https://github.com/baldurh/atom-status-bar-blame.git');
       const link = await utils.getCommitLink('somefile.txt', '12345678');
       expect(link).toEqual('https://github.com/baldurh/atom-status-bar-blame/commit/12345678');
     });
 
     it('should provide a correct link', async () => {
-      spyOn(utils, 'findRepo').andReturn('/.git');
-      spyOn(Git.prototype, 'exec').andCallFake((cmd, options, args, callback) => {
-        if (cmd === 'config' && args[0] === 'remote.origin.url') {
-          return callback(null, 'git@gitlab.hidden.dom:eid/broncode.git');
-        }
-        return callback(null);
-      });
+      spyOn(utils.git, 'getConfig').andReturn('git@gitlab.hidden.dom:eid/broncode.git');
       const link = await utils.getCommitLink('somefile.txt', '12345678');
       expect(link).toEqual('http://gitlab.hidden.dom/eid/broncode/commit/12345678');
     });
@@ -42,25 +33,21 @@ describe('Utils', () => {
   describe('getCommit', () => {
     beforeEach(() => {
       spyOn(utils, 'findRepo').andReturn('/.git');
-      spyOn(Git.prototype, 'exec').andCallFake((cmd, options, args, callback) => {
-        if (cmd === 'show' && args[0] === '12345678') {
-          return callback(null, `someone@wherever.com
-Some One
-Subject Line
-
-Line 1
-Line 2`);
-        }
-        return callback(null);
-      });
     });
 
     it('should return null', async () => {
+      spyOn(utils.git, 'show').andReturn(null);
       const commit = await utils.getCommit('somefile.txt', '11111111');
       expect(commit).toBe(null);
     });
 
     it('should return a valid commit object', async () => {
+      spyOn(utils.git, 'show').andReturn(`someone@wherever.com
+Some One
+Subject Line
+
+Line 1
+Line 2`);
       const commit = await utils.getCommit('somefile.txt', '12345678');
       expect(commit).toEqual({
         email: 'someone@wherever.com',
