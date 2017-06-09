@@ -21,6 +21,7 @@ describe('Status Bar Blame', () => {
     });
 
     it('should render blame element', () => {
+      spyOn(utils, 'findRepo').andReturn(null);
       waitsForPromise(() => atom.workspace.open('empty.txt'));
       waitsFor(() => renderSpy.callCount > 0);
       runs(() => {
@@ -30,6 +31,7 @@ describe('Status Bar Blame', () => {
 
     it('should render "Not Committed Yet" when there’s no data for file', () => {
       spyOn(utils, 'findRepo').andReturn('.git');
+      spyOn(utils, 'blameFile').andReturn(null);
       waitsForPromise(() => atom.workspace.open('empty.txt'));
       waitsFor(() => renderSpy.callCount > 0);
       runs(() => {
@@ -47,6 +49,7 @@ describe('Status Bar Blame', () => {
     });
 
     it('should render "Not committed yet" when the line hasn’t been committed', () => {
+      spyOn(utils, 'findRepo').andReturn('.git');
       spyOn(utils, 'blameFile').andReturn([{
         author: 'Not Committed Yet',
         date: '2017-04-03 17:05:39 +0000',
@@ -61,6 +64,7 @@ describe('Status Bar Blame', () => {
     });
 
     it('should render author name and date', () => {
+      spyOn(utils, 'findRepo').andReturn('.git');
       spyOn(utils, 'blameFile').andReturn([{
         author: 'Baldur Helgason',
         date: '2016-04-04 09:05:39 +0000',
@@ -68,7 +72,7 @@ describe('Status Bar Blame', () => {
         rev: '12345678',
       }]);
 
-      spyOn(BlameView.prototype, 'addTooltip');
+      spyOn(BlameView.prototype, 'getTooltipContent').andReturn();
       waitsForPromise(() => atom.workspace.open('empty.txt'));
       waitsFor(() => renderSpy.callCount > 0);
       runs(() => {
@@ -77,6 +81,7 @@ describe('Status Bar Blame', () => {
     });
 
     it('should render author name and relative date (2 days ago)', () => {
+      spyOn(utils, 'findRepo').andReturn('.git');
       spyOn(utils, 'blameFile').andReturn([{
         author: 'Baldur Helgason',
         date: moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss'),
@@ -84,7 +89,7 @@ describe('Status Bar Blame', () => {
         rev: '12345678',
       }]);
 
-      spyOn(BlameView.prototype, 'addTooltip');
+      spyOn(BlameView.prototype, 'getTooltipContent');
       waitsForPromise(() => atom.workspace.open('empty.txt'));
       waitsFor(() => renderSpy.callCount > 0);
       runs(() => {
@@ -94,7 +99,7 @@ describe('Status Bar Blame', () => {
 
     it('should copy the commit hash on shift+click', () => {
       let spy = null;
-
+      spyOn(utils, 'findRepo').andReturn('.git');
       spyOn(utils, 'blameFile').andReturn([{
         author: 'Baldur Helgason',
         date: '2017-04-03 17:05:39 +0000',
@@ -103,7 +108,7 @@ describe('Status Bar Blame', () => {
       }]);
 
       spyOn(atom.clipboard, 'write');
-      spyOn(BlameView.prototype, 'addTooltip');
+      spyOn(BlameView.prototype, 'getTooltipContent');
 
       waitsForPromise(() => atom.workspace.open('empty.txt'));
 
@@ -126,7 +131,7 @@ describe('Status Bar Blame', () => {
 
     it('should display notification tooltip when url is unknown', () => {
       let spy = null;
-
+      spyOn(utils, 'findRepo').andReturn('.git');
       spyOn(utils, 'blameFile').andReturn([{
         author: 'Baldur Helgason',
         date: '2017-04-03 17:05:39 +0000',
@@ -136,7 +141,7 @@ describe('Status Bar Blame', () => {
 
       spyOn(utils, 'getCommitLink').andReturn(null);
 
-      spyOn(BlameView.prototype, 'addTooltip');
+      spyOn(BlameView.prototype, 'getTooltipContent');
 
       waitsForPromise(() => atom.workspace.open('empty.txt'));
 
