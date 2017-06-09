@@ -1,7 +1,7 @@
 {
   "name": "status-bar-blame",
   "main": "./lib/init",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Shows git blame in the status bar.",
   "author": "Baldur Helgason <baldur.helgason@gmail.com>",
   "keywords": [
