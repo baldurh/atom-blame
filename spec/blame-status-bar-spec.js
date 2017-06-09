@@ -47,7 +47,7 @@ describe('Status Bar Blame', () => {
     });
 
     it('should render "Not committed yet" when the line hasn’t been committed', () => {
-      spyOn(utils, 'blame').andReturn([{
+      spyOn(utils, 'blameFile').andReturn([{
         author: 'Not Committed Yet',
         date: '2017-04-03 17:05:39 +0000',
         line: '1',
@@ -61,7 +61,7 @@ describe('Status Bar Blame', () => {
     });
 
     it('should render author name and date', () => {
-      spyOn(utils, 'blame').andReturn([{
+      spyOn(utils, 'blameFile').andReturn([{
         author: 'Baldur Helgason',
         date: '2016-04-04 09:05:39 +0000',
         line: '1',
@@ -77,7 +77,7 @@ describe('Status Bar Blame', () => {
     });
 
     it('should render author name and relative date (2 days ago)', () => {
-      spyOn(utils, 'blame').andReturn([{
+      spyOn(utils, 'blameFile').andReturn([{
         author: 'Baldur Helgason',
         date: moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss'),
         line: '1',
@@ -95,7 +95,7 @@ describe('Status Bar Blame', () => {
     it('should copy the commit hash on shift+click', () => {
       let spy = null;
 
-      spyOn(utils, 'blame').andReturn([{
+      spyOn(utils, 'blameFile').andReturn([{
         author: 'Baldur Helgason',
         date: '2017-04-03 17:05:39 +0000',
         line: '1',
@@ -127,7 +127,7 @@ describe('Status Bar Blame', () => {
     it('should display notification tooltip when url is unknown', () => {
       let spy = null;
 
-      spyOn(utils, 'blame').andReturn([{
+      spyOn(utils, 'blameFile').andReturn([{
         author: 'Baldur Helgason',
         date: '2017-04-03 17:05:39 +0000',
         line: '1',
