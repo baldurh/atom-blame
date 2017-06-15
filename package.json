@@ -22,9 +22,11 @@
     }
   },
   "dependencies": {
+    "fs-plus": "^3.0.1",
     "gravatar": "^1.6.0",
     "moment": "^2.18.1",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "temp": "^0.8.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",
