@@ -1,44 +1,39 @@
 /** @babel */
 
-import fs from 'fs';
+import fs from 'fs-plus';
+import temp from 'temp';
+import path from 'path';
 import * as utils from '../lib/utils';
 
 describe('Utils', () => {
   describe('findRepo', () => {
     it('should find the git repo', () => {
-      spyOn(fs, 'existsSync').andCallFake(path => path === '/fakeRoot/.git');
-      const repoPath = utils.findRepo('/fakeRoot/lib/utils/');
-      expect(repoPath).toEqual('/fakeRoot/.git');
+      const projectPath = temp.mkdirSync('status-bar-blame');
+      fs.copySync(path.join(__dirname, 'fixtures', 'working-dir'), projectPath);
+      fs.moveSync(path.join(projectPath, 'git.git'), path.join(projectPath, '.git'));
+      atom.project.setPaths([projectPath]);
+      const repo = utils.findRepo(path.join(projectPath, '/some-dir'));
+      expect(repo).not.toBeNull();
     });
   });
 
   describe('getCommitLink', () => {
-    beforeEach(() => {
-      spyOn(utils, 'findRepo').andReturn('/.git');
-    });
-
     it('should provide a correct link for github', async () => {
-      spyOn(utils.git, 'getConfig').andReturn('https://github.com/baldurh/atom-status-bar-blame.git');
-      const link = await utils.getCommitLink('somefile.txt', '12345678');
+      const link = await utils.getCommitLink('somefile.txt', '12345678', 'https://github.com/baldurh/atom-status-bar-blame.git');
       expect(link).toEqual('https://github.com/baldurh/atom-status-bar-blame/commit/12345678');
     });
 
     it('should provide a correct link', async () => {
-      spyOn(utils.git, 'getConfig').andReturn('git@gitlab.hidden.dom:eid/broncode.git');
-      const link = await utils.getCommitLink('somefile.txt', '12345678');
+      const link = await utils.getCommitLink('somefile.txt', '12345678', 'git@gitlab.hidden.dom:eid/broncode.git');
       expect(link).toEqual('http://gitlab.hidden.dom/eid/broncode/commit/12345678');
     });
   });
 
   describe('getCommit', () => {
-    beforeEach(() => {
-      spyOn(utils, 'findRepo').andReturn('/.git');
-    });
-
     it('should return null', async () => {
       spyOn(utils.git, 'show').andReturn(null);
       const commit = await utils.getCommit('somefile.txt', '11111111');
-      expect(commit).toBe(null);
+      expect(commit).toBeNull();
     });
 
     it('should return a valid commit object', async () => {
@@ -60,11 +55,11 @@ Line 2`);
 
   describe('isCommitted', () => {
     it('should return true', () => {
-      expect(utils.isCommitted('12345678')).toBe(true);
+      expect(utils.isCommitted('12345678')).toBeTruthy();
     });
 
     it('should return false', () => {
-      expect(utils.isCommitted('00000000')).toBe(false);
+      expect(utils.isCommitted('00000000')).toBeFalsy();
     });
   });
 });
