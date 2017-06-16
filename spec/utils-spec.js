@@ -10,7 +10,7 @@ describe('Utils', () => {
     it('should find the git repo', () => {
       const projectPath = temp.mkdirSync('status-bar-blame');
       fs.copySync(path.join(__dirname, 'fixtures', 'working-dir'), projectPath);
-      fs.moveSync(path.join(projectPath, 'git.git'), path.join(projectPath, '.git'));
+      fs.moveSync(path.join(projectPath, 'git'), path.join(projectPath, '.git'));
       atom.project.setPaths([projectPath]);
       const repo = utils.findRepo(path.join(projectPath, '/some-dir'));
       expect(repo).not.toBeNull();
