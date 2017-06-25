@@ -42,7 +42,7 @@ describe('Status Bar Blame', () => {
   describe('Status bar', () => {
     let renderSpy;
     beforeEach(() => {
-      renderSpy = spyOn(EditorHandler.prototype, 'checkAndRender').andCallThrough();
+      renderSpy = spyOn(EditorHandler.prototype, 'render').andCallThrough();
     });
 
     it('renders blame element', () => {
@@ -102,7 +102,7 @@ describe('Status Bar Blame', () => {
       });
 
       describe('when a line is added', () => {
-        it('renders "Not Committed Yet"', () => {
+        it('renders "Unsaved"', () => {
           waitsFor(() => renderSpy.callCount > 0);
 
           runs(() => {
@@ -119,13 +119,13 @@ describe('Status Bar Blame', () => {
           waitsFor(() => renderSpy.callCount > 1);
 
           runs(() => {
-            expect(blameEl().innerHTML).toEqual('Not Committed Yet');
+            expect(blameEl().innerHTML).toEqual('Unsaved');
           });
         });
       });
 
       describe('when a line is modified', () => {
-        it('renders "Not Committed Yet"', () => {
+        it('renders "Unsaved"', () => {
           waitsFor(() => renderSpy.callCount > 0);
 
           runs(() => {
@@ -140,7 +140,7 @@ describe('Status Bar Blame', () => {
           waitsFor(() => renderSpy.callCount > 1);
 
           runs(() => {
-            expect(blameEl().innerHTML).toEqual('Not Committed Yet');
+            expect(blameEl().innerHTML).toEqual('Unsaved');
           });
         });
       });
@@ -161,7 +161,7 @@ describe('Status Bar Blame', () => {
           waitsFor(() => renderSpy.callCount > 1);
 
           runs(() => {
-            expect(blameEl().innerHTML).toEqual('Not Committed Yet');
+            expect(blameEl().innerHTML).toEqual('Unsaved');
           });
 
           runs(() => {
