@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.0
+* Changes the way tabs/editors are handled. Major parts of the code rewritten.
+
 ## 1.2.0
 * Removes 3rd party dependencies, `blamer` and `git-wrapper`. Addresses long startup times.
 * Fixes wrong user information in tooltips for squashed commits.
