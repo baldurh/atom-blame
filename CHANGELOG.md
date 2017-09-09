@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.1
+* Changes the way commit messages are handled. Only fetch them when needed.
+
 ## 2.0.0
 * Changes the way tabs/editors are handled. Major parts of the code rewritten.
 
