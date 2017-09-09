@@ -15,6 +15,7 @@ describe('Status Bar Blame', () => {
   const blameEl = () => workspaceElement.querySelector('status-bar-blame');
 
   beforeEach(() => {
+    jasmine.useRealClock();
     workspaceElement = atom.views.getView(atom.workspace);
     spyOn(window, 'setImmediate').andCallFake(fn => fn());
 
