@@ -182,7 +182,21 @@ describe('Status Bar Blame', () => {
       describe('when element is clicked', () => {
         describe('when url is known', () => {
           it('opens the url', () => {
+            spyOn(utils, 'getCommitLink').andReturn('http://foo.bar');
+            const openSpy = spyOn(utils, 'open').andReturn();
+            waitsForPromise(() => atom.workspace.open(path.join(projectPath, 'sample.js')));
+            waitsFor(() => renderSpy.callCount > 0);
 
+            runs(() => {
+              const event = new Event('click');
+              blameEl().dispatchEvent(event);
+            });
+
+            waitsFor(() => openSpy.callCount > 0);
+
+            runs(() => {
+              expect(openSpy).toHaveBeenCalledWith('http://foo.bar');
+            });
           });
         });
 
