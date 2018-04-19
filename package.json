@@ -22,16 +22,16 @@
     }
   },
   "dependencies": {
-    "fs-plus": "^3.0.1",
-    "gravatar": "^1.6.0",
-    "moment": "^2.18.1",
+    "fs-plus": "3.0.1",
+    "gravatar": "1.6.0",
+    "moment": "2.18.1",
     "open": "0.0.5",
-    "temp": "^0.8.3"
+    "temp": "0.8.3"
   },
   "devDependencies": {
-    "babel-eslint": "^7.2.1",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.1.2",
-    "eslint-plugin-import": "^2.2.0"
+    "babel-eslint": "7.2.1",
+    "eslint": "3.19.0",
+    "eslint-config-airbnb-base": "11.1.2",
+    "eslint-plugin-import": "2.2.0"
   }
 }
