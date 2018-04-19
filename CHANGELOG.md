@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.3
+* Fixes error when clicking the status bar element and there’s no origin remote.
+
+## 2.0.2
+* Fixes error when cursor is on the editor’s trailing newline/
+
 ## 2.0.1
 * Changes the way commit messages are handled. Only fetch them when needed.
 
