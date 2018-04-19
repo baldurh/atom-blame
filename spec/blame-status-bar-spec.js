@@ -175,6 +175,7 @@ describe('Status Bar Blame', () => {
       describe('when element is clicked', () => {
         describe('when url is known', () => {
           it('opens the url', () => {
+            spyOn(EditorHandler.prototype, 'getRemoteUrl').andReturn('https://github.com/baldurh/atom-status-bar-blame.git');
             spyOn(utils, 'getCommitLink').andReturn('http://foo.bar');
             const openSpy = spyOn(utils, 'open').andReturn();
             waitsForPromise(() => atom.workspace.open(path.join(projectPath, 'sample.js')));
@@ -195,6 +196,7 @@ describe('Status Bar Blame', () => {
 
         describe('when url is unknown', () => {
           it('displays notification tooltip', () => {
+            spyOn(EditorHandler.prototype, 'getRemoteUrl').andReturn('https://github.com/baldurh/atom-status-bar-blame.git');
             spyOn(utils, 'getCommitLink').andReturn(null);
 
             waitsForPromise(() => atom.workspace.open(path.join(projectPath, 'sample.js')));
@@ -212,6 +214,29 @@ describe('Status Bar Blame', () => {
 
             runs(() => {
               expect(spy).toHaveBeenCalledWith('Unknown url. Shift-click to copy hash.', 2000);
+            });
+          });
+        });
+
+        describe('when no origin remote is available', () => {
+          it('displays notification tooltip', () => {
+            spyOn(EditorHandler.prototype, 'getRemoteUrl').andReturn(null);
+
+            waitsForPromise(() => atom.workspace.open(path.join(projectPath, 'sample.js')));
+            waitsFor(() => renderSpy.callCount > 0);
+
+            let spy;
+            runs(() => {
+              spy = spyOn(BlameView.prototype, 'addNotificationTooltip').andCallThrough();
+
+              const event = new Event('click');
+              blameEl().dispatchEvent(event);
+            });
+
+            waitsFor(() => spy.callCount > 0);
+
+            runs(() => {
+              expect(spy).toHaveBeenCalledWith('No origin remote found. Shift-click to copy hash.', 2000);
             });
           });
         });
